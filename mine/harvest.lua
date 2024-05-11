@@ -20,7 +20,7 @@ function seed()
 end
 
 function harvest(blockData)
-    maxAge = min(maxAges[blockData.state.name], 7)
+    maxAge = maxAges[blockData.name] or 7
     if blockData.state.age == maxAge then
         turtle.digDown()
         seed()
