@@ -21,6 +21,9 @@ function seed()
         if turtle.getItemCount(i) > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
             turtle.select(i)
             turtle.placeDown()
+            if ejectSeeds then
+                turtle.dropUp()
+            end
             return
         end
     end
