@@ -18,7 +18,7 @@ nonSeedPlantables = {
 function seed()
     for i = 16, 1, -1 do
         local details = turtle.getItemDetail(i, true)
-        if details.count > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
+        if details and details.count > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
             turtle.select(i)
             turtle.placeDown()
             if ejectSeeds and details.tags["c:seeds"] and details.count > 55 then
