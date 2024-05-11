@@ -16,7 +16,7 @@ end
 function placeInvDown()
     for i = 1, 16 do
         turtle.select(i)
-        if not turtle.getItemDetail() == nil then
+        if turtle.getItemCount(i) > 0 then
             turtle.placeDown()
             return
         end
