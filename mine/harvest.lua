@@ -43,11 +43,11 @@ end
 
 function nextRow()
     if turtle.forward() then
-        -- if the turtle can move forward, move to the next row and 
         turn = not turn
         local hasBlock, data = turtle.inspectDown()
         if hasBlock and not data.tags["minecraft:crops"] then
             while turtle.back() do
+                hasBlock, data = turtle.inspectDown()
                 if hasBlock and not data.tags["minecraft:crops"] then
                     turtle.forward()
                 end
