@@ -1,4 +1,6 @@
 args = {...}
+
+ejectSeeds = args[1] == nil and false or args[1] == "true"
 turn = false -- if true, turn right, if false, turn left
 
 maxAges = {
@@ -57,7 +59,6 @@ function step()
             harvest(data)
         else
             if data.tags["c:chests"] or data.tags["c:barrels"] or data.tags["c:shulker_boxes"] then
-                -- store items
                 for i = 1, 16 do
                     turtle.select(i)
                     turtle.dropDown()
