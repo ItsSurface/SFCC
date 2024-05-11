@@ -6,11 +6,18 @@ maxAges = {
     ["minecraft:nether_wart"] = 3,
     ["farmersdelight:tomatoes"] = 3
 }
+nonSeedPlantables = {
+    ["minecraft:carrots"] = true,
+    ["minecraft:potatoes"] = true,
+    ["minecraft:nether_wart"] = true,
+    ["farmersdelight:onion"] = true
+}
 
 function seed()
     for i = 1, 16 do
-        turtle.select(i)
-        if turtle.getItemCount(i) > 0 and turtle.getItemDetail(i, true).tags["minecraft:crops"] then
+        local details = turtle.getItemDetail(i, true)
+        if turtle.getItemCount(i) > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
+            turtle.select(i)
             turtle.placeDown()
             return
         end
@@ -20,7 +27,7 @@ function seed()
 end
 
 function harvest(blockData)
-    maxAge = maxAges[blockData.name] or 7
+    local maxAge = maxAges[blockData.name] or 7
     if blockData.state.age == maxAge then
         turtle.digDown()
         seed()
