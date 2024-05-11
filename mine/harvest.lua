@@ -65,6 +65,7 @@ function step()
             end
             turtle.back()
             turnAround()
+            return
         end
     end
     if not turtle.forward() then
