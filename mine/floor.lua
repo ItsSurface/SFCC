@@ -4,7 +4,7 @@ if #args < 2 then
     return
 end
 
-length = tonumber(args[1])
+length = tonumber(args[1])-1
 width = tonumber(args[2])
 
 function forward()
@@ -29,7 +29,7 @@ for i = 1, width do
     for j = 1, length do
         turtle.digDown()
         placeInvDown()
-        turtle.forward()
+        forward()
     end
     if i % 2 == 0 then
         turtle.turnRight()
