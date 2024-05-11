@@ -8,3 +8,4 @@ end
 fs.delete(mydir)
 fs.makeDir(mydir)
 download("mine/test", "/mine/test")
+download("mine/floor", "/mine/floor")
