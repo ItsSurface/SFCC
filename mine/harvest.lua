@@ -83,6 +83,7 @@ function step()
                     turtle.select(i)
                     turtle.dropDown()
                 end
+                turtle.select(1)
             end
             -- if the block is not a crop, turn around
             turtle.back()
