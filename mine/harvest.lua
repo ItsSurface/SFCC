@@ -23,6 +23,7 @@ function seed()
             turtle.placeDown()
             if ejectSeeds and details.tags["c:seeds"] and details.count > 55 then
                 turtle.dropUp()
+                turtle.select(1)
             elseif i ~= 16 then
                 turtle.transferTo(16)
             end
