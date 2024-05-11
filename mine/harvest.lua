@@ -21,7 +21,7 @@ function seed()
         if turtle.getItemCount(i) > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
             turtle.select(i)
             turtle.placeDown()
-            if ejectSeeds then
+            if ejectSeeds and details.tags["c:seeds"] and details.count > 55 then
                 turtle.dropUp()
             end
             return
@@ -39,40 +39,55 @@ function harvest(blockData)
     end
 end
 
+function nextRow()
+    if turtle.forward() then
+        -- if the turtle can move forward, move to the next row and 
+        turn = not turn
+        local hasBlock, data = turtle.inspectDown()
+        if hasBlock and not data.tags["minecraft:crops"] then
+            while turtle.back() do
+                if hasBlock and not data.tags["minecraft:crops"] then
+                    turtle.forward()
+                end
+            end
+        end 
+    end
+end
+
 function turnAround()
     if turn then
         turtle.turnRight()
-        if turtle.forward() then
-            turn = not turn
-        end
+        nextRow()
         turtle.turnRight()
     else
         turtle.turnLeft()
-        if turtle.forward() then
-            turn = not turn
-        end
+        nextRow()
         turtle.turnLeft()
     end
 end
 
 function step()
-    hasBlock, data = turtle.inspectDown()
+    local hasBlock, data = turtle.inspectDown()
     if hasBlock then
         if data.tags["minecraft:crops"] then
+            -- if the block is a crop, harvest it
             harvest(data)
         else
             if data.tags["c:chests"] or data.tags["c:barrels"] or data.tags["c:shulker_boxes"] then
+                -- if the block is a chest, barrel, or shulker box, drop all items in the inventory into it
                 for i = 1, 16 do
                     turtle.select(i)
                     turtle.dropDown()
                 end
             end
+            -- if the block is not a crop, turn around
             turtle.back()
             turnAround()
             return
         end
     end
     if not turtle.forward() then
+        -- if the turtle cannot move forward, turn around
         turnAround()
     end
 end
