@@ -50,6 +50,7 @@ function nextRow()
                 hasBlock, data = turtle.inspectDown()
                 if hasBlock and not data.tags["minecraft:crops"] then
                     turtle.forward()
+                    return
                 end
             end
         end 
