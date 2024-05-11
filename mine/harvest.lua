@@ -16,13 +16,15 @@ nonSeedPlantables = {
 }
 
 function seed()
-    for i = 1, 16 do
+    for i = 16, 1, -1 do
         local details = turtle.getItemDetail(i, true)
         if turtle.getItemCount(i) > 0 and (details.tags["c:seeds"] or nonSeedPlantables[details.name]) then
             turtle.select(i)
             turtle.placeDown()
             if ejectSeeds and details.tags["c:seeds"] and details.count > 55 then
                 turtle.dropUp()
+            elseif not i == 16 then
+                turtle.transferTo(16)
             end
             return
         end
