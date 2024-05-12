@@ -22,8 +22,8 @@ end
 
 function placeInvDown()
     for i = 1, 16 do
-        turtle.select(i)
         if turtle.getItemCount(i) > 0 and turtle.getItemDetail(i).name == blockType then
+            turtle.select(i)
             turtle.placeDown()
             return
         end
