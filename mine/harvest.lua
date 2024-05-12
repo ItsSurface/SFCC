@@ -46,8 +46,8 @@ function harvest(blockData)
 end
 
 function nextRow()
+    turn = not turn
     if turtle.forward() then
-        turn = not turn
         local hasBlock, data = turtle.inspectDown()
         if not hasBlock or data.tags["minecraft:crops"] then
             return
