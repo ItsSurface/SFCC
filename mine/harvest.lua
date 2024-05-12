@@ -9,8 +9,8 @@ maxAges = {
     ["farmersdelight:tomatoes"] = 3
 }
 nonSeedPlantables = {
-    ["minecraft:carrots"] = true,
-    ["minecraft:potatoes"] = true,
+    ["minecraft:carrot"] = true,
+    ["minecraft:potato"] = true,
     ["minecraft:nether_wart"] = true,
     ["farmersdelight:onion"] = true
 }
