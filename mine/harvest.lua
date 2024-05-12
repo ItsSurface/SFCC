@@ -1,6 +1,9 @@
 args = {...}
 
 ejectSeeds = args[1] == nil and false or args[1] == "true"
+-- set axis to x to make the turtle move along the x-axis, set it to z to make the turtle move along the z-axis. nil will prevent the turtle from checking its axis
+axis = args[2]
+
 turn = false -- if true, turn right, if false, turn left
 
 maxAges = {
@@ -14,6 +17,27 @@ nonSeedPlantables = {
     ["minecraft:nether_wart"] = true,
     ["farmersdelight:onion"] = true
 }
+
+function gpsAxisCheck()
+    if axis == nil then
+        return
+    end
+    x, y, z = gps.locate()
+    if not turtle.forward() then
+        turtle.back()
+        x2, y2, z2 = gps.locate()
+        turtle.forward()
+    else 
+        x2, y2, z2 = gps.locate()
+        turtle.back()
+    end
+    if axis == "x" and x ~= x2 then
+        turtle.turnRight()
+    end
+    if axis == "z" and z ~= z2 then
+        turtle.turnRight()
+    end
+end
 
 function seed()
     for i = 16, 1, -1 do
@@ -50,16 +74,18 @@ function nextRow()
     if turtle.forward() then
         local hasBlock, data = turtle.inspectDown()
         if not hasBlock or data.tags["minecraft:crops"] then
-            return
+            return true
         end 
     end
-    while turtle.back() do
+    turtle.turnRight()
+    turtle.turnRight()
+    while turtle.forward() do
         hasBlock, data = turtle.inspectDown()
         if hasBlock and not data.tags["minecraft:crops"] then
-            turtle.forward()
-            return
+            turtle.back()
         end
     end
+    return false
 end
 
 function turnAround()
