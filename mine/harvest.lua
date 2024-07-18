@@ -110,13 +110,19 @@ function turnAround()
     if turn then
         debugPrint("Turning right")
         turtle.turnRight()
-        nextRow()
-        turtle.turnRight()
+        if nextRow() then
+            turtle.turnRight()
+        else
+            turtle.turnLeft()
+        end
     else
         debugPrint("Turning left")
         turtle.turnLeft()
-        nextRow()
-        turtle.turnLeft()
+        if nextRow() then
+            turtle.turnLeft()
+        else
+            turtle.turnRight()
+        end
     end
 end
 
