@@ -3,6 +3,7 @@ args = {...}
 ejectSeeds = args[1] == nil and false or args[1] == "true"
 -- set axis to x to make the turtle move along the x-axis, set it to z to make the turtle move along the z-axis. nil will prevent the turtle from checking its axis
 axis = args[2]
+debug = args[3] == nil and false or args[3] == "true"
 
 turn = false -- if true, turn right, if false, turn left
 
@@ -18,7 +19,22 @@ nonSeedPlantables = {
     ["farmersdelight:onion"] = true
 }
 
+function debugPrint(message)
+    if debug then
+        print(message)
+    end
+end
+
+function fuelCheck()
+    if turtle.getFuelLevel() < 10 then
+        print("Out of fuel")
+        return false
+    end
+    return true
+end
+
 function gpsAxisCheck()
+    debugPrint("Checking axis")
     if axis == nil then
         return
     end
@@ -90,10 +106,12 @@ end
 
 function turnAround()
     if turn then
+        debugPrint("Turning right")
         turtle.turnRight()
         nextRow()
         turtle.turnRight()
     else
+        debugPrint("Turning left")
         turtle.turnLeft()
         nextRow()
         turtle.turnLeft()
@@ -102,12 +120,16 @@ end
 
 function step()
     local hasBlock, data = turtle.inspectDown()
+    debugPrint("Block: " .. (hasBlock and data.name or "none"))
     if hasBlock then
         if data.tags["minecraft:crops"] then
+            debugPrint("Harvesting")
             -- if the block is a crop, harvest it
             harvest(data)
         else
+            debugPrint("Not a crop")
             if data.tags["c:chests"] or data.tags["c:barrels"] or data.tags["c:shulker_boxes"] then
+                debugPrint("Dropping items")
                 -- if the block is a chest, barrel, or shulker box, drop all items in the inventory into it
                 for i = 1, 16 do
                     turtle.select(i)
@@ -121,6 +143,7 @@ function step()
             return
         end
     end
+    debugPrint("Moving forward")
     if not turtle.forward() then
         -- if the turtle cannot move forward, turn around
         turnAround()
@@ -129,4 +152,8 @@ end
 
 while true do
     step()
+    if not fuelCheck() then
+
+        sleep(10)
+    end
 end
