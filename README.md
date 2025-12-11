@@ -2,6 +2,6 @@
 ## Installation
 1. Download install.lua
 ```
-wget https://raw.githubusercontent.com/ItsSurface/SFCC/main/install.lua /install
+wget https://github.com/ItsSurface/SFCC/raw/refs/heads/main/install.lua /install
 ```
 2. Run install.lua
