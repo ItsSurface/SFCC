@@ -1,0 +1,11 @@
+minecraft:dirt
+minecraft:grass
+minecraft:cobblestone
+minecraft:stone
+minecraft:deepslate
+minecraft:cobbled_deepslate
+xycraft_world:kivi
+create:ochrum
+minecraft:tuff
+minecraft:gravel
+forbidden_arcanus:darkstone
